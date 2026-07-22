@@ -4,11 +4,7 @@
 
 Kocaeli ili için gerçek yol ağı verisi kullanan, sezgisel (heuristic) algoritma tabanlı kargo rotalama ve lojistik optimizasyon sistemi.
 
-## 📸 Ekran Görüntüsü
 
-| Admin Panel — Rota Görselleştirme |
-|:---:|
-| ![Admin Panel](screenshots/admin-panel.png) |
 
 ## Proje Hakkında
 Bu proje, Kocaeli ilinin gerçek yol ağı üzerinde kargo dağıtım rotalarını optimize eden web tabanlı bir lojistik sistemdir. OpenStreetMap verileri üzerinden OSMnx ile oluşturulan GraphML yol ağı, önceden hesaplanmış mesafe matrisi ve kapasite kısıtlı araç atama algoritmaları ile en verimli rotaları hesaplar. Sistem, 12 ilçe istasyonu arasında farklı araç kapasiteleri ve kiralama maliyetlerini dikkate alarak optimum dağıtım planı oluşturur.
