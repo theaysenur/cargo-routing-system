@@ -1,0 +1,275 @@
+/* ==========================
+   BASE
+========================== */
+*{
+  box-sizing: border-box;
+  font-family: Inter, Arial, sans-serif;
+}
+
+html, body { height: 100%; }
+body { margin: 0; }
+
+/* ==========================
+   TAMAMEN MAVİ ARKA PLAN
+========================== */
+body,
+.app-bg{
+  min-height: 100vh;
+  background:
+    radial-gradient(1100px 650px at 18% 12%, rgba(59,130,246,0.38), transparent 60%),
+    radial-gradient(900px 540px at 82% 18%, rgba(14,165,233,0.30), transparent 55%),
+    radial-gradient(900px 650px at 55% 88%, rgba(37,99,235,0.28), transparent 60%),
+    linear-gradient(180deg, #0b1220 0%, #0b1b3a 45%, #071a35 100%);
+}
+
+/* Wrapper varsa */
+.app-bg{ padding: 16px; }
+
+/* ==========================
+   LAYOUT (İSTERLER: sidebar + map)
+========================== */
+.layout{
+  display: flex;
+  gap: 16px;
+  height: 100vh;
+}
+
+/* wrapper kullanıyorsan */
+.app-bg .layout{
+  height: calc(100vh - 32px);
+}
+
+/* ==========================
+   SIDEBAR (MAVİ CAM KART)
+========================== */
+.sidebar{
+  width: 320px;
+  padding: 18px;
+  overflow-y: auto;
+
+  border-radius: 18px;
+  border: 1px solid rgba(148,163,184,0.20);
+  background: rgba(15, 23, 42, 0.62);     /* koyu mavi cam */
+  color: #e5e7eb;
+
+  backdrop-filter: blur(12px);
+  box-shadow: 0 24px 70px rgba(0,0,0,0.35);
+}
+
+.sidebar h2{
+  margin: 0 0 10px 0;
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.sidebar h3{
+  margin: 14px 0 6px 0;
+  font-size: 15px;
+  color: #dbeafe;
+}
+
+.sidebar label{
+  display: block;
+  margin-top: 12px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: rgba(219,234,254,0.92);
+}
+
+/* inputs/select */
+.sidebar select,
+.sidebar input{
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(96,165,250,0.22);
+  background: rgba(2, 6, 23, 0.35);
+  color: #e5e7eb;
+  outline: none;
+}
+
+.sidebar select:focus,
+.sidebar input:focus{
+  border-color: rgba(59,130,246,0.80);
+  box-shadow: 0 0 0 4px rgba(59,130,246,0.22);
+}
+
+/* buttons */
+.sidebar button{
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 900;
+  color: #fff;
+  background: linear-gradient(135deg, #60a5fa 0%, #2563eb 55%, #1d4ed8 100%);
+  box-shadow: 0 16px 40px rgba(37,99,235,0.35);
+  transition: transform .08s ease, filter .15s ease;
+}
+
+.sidebar button:hover{ filter: brightness(1.06); }
+.sidebar button:active{ transform: translateY(1px); }
+
+.sidebar p{
+  margin: 8px 0;
+  color: rgba(226,232,240,0.9);
+}
+
+.sidebar b{ color: #ffffff; }
+
+.sidebar hr{
+  margin: 18px 0;
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(96,165,250,0.35), transparent);
+}
+
+/* sidebar scrollbar */
+.sidebar::-webkit-scrollbar{ width: 8px; }
+.sidebar::-webkit-scrollbar-thumb{
+  background: rgba(96,165,250,0.35);
+  border-radius: 10px;
+}
+.sidebar::-webkit-scrollbar-thumb:hover{
+  background: rgba(96,165,250,0.55);
+}
+
+/* ==========================
+   MAP (MAVİ KART)
+========================== */
+#map{
+  flex: 1;
+  height: 100%;
+  min-height: 100%;
+
+  border-radius: 22px;
+  overflow: hidden;
+
+  box-shadow: 0 28px 90px rgba(0,0,0,0.45);
+  border: 1px solid rgba(148,163,184,0.18);
+}
+
+/* Eğer HTML’de map-shell wrapper varsa */
+.map-shell{
+  flex: 1;
+  border-radius: 22px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 28px 90px rgba(0,0,0,0.45);
+  border: 1px solid rgba(148,163,184,0.18);
+  background: rgba(15,23,42,0.35);
+  backdrop-filter: blur(10px);
+}
+.map-shell #map{
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+}
+
+/* ==========================
+   KARGO LİSTEM (Varsa)
+========================== */
+#cargoStatus{
+  max-height: 360px;
+  overflow-y: auto;
+  padding-right: 6px;
+  margin-top: 10px;
+}
+#cargoStatus::-webkit-scrollbar{ width: 6px; }
+#cargoStatus::-webkit-scrollbar-thumb{
+  background-color: rgba(96,165,250,0.35);
+  border-radius: 4px;
+}
+#cargoStatus::-webkit-scrollbar-thumb:hover{
+  background-color: rgba(96,165,250,0.6);
+}
+
+/* ==========================
+   KARGO KARTLARI (Varsa)
+========================== */
+.cargo-card{
+  background: rgba(2,6,23,0.35);
+  border: 1px solid rgba(96,165,250,0.18);
+  border-radius: 14px;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: rgba(226,232,240,0.95);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+}
+.cargo-approved{ border-left: 5px solid #22c55e; }
+.cargo-rejected{ border-left: 5px solid #ef4444; }
+.cargo-status-text{ font-weight: 800; }
+
+/* ==========================
+   LEGEND
+========================== */
+.legend-item{
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  color: rgba(226,232,240,0.92);
+}
+.legend-color{
+  width: 14px;
+  height: 14px;
+  margin-right: 8px;
+  border-radius: 4px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+
+/* ==========================
+   ROTA DETAY KARTLARI
+========================== */
+.route-card{
+  background: rgba(2,6,23,0.35);
+  border-left: 5px solid #60a5fa;
+  border-radius: 14px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  box-shadow: 0 14px 35px rgba(0,0,0,0.30);
+  border: 1px solid rgba(96,165,250,0.18);
+}
+
+.route-head{
+  width: 100%;
+  background: rgba(15, 23, 42, 0.82);
+  color: #fff;
+  border: none;
+  padding: 10px 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 900;
+}
+.route-head:hover{ background: rgba(30, 41, 59, 0.86); }
+
+.route-body{
+  padding: 10px 12px;
+  background: rgba(2,6,23,0.22);
+  font-size: 13px;
+  color: rgba(226,232,240,0.95);
+}
+.route-row{ margin: 6px 0; }
+
+/* ==========================
+   LEAFLET Z-INDEX (SENİN FIX)
+========================== */
+.leaflet-pane { z-index: 400; }
+.leaflet-tile-pane { z-index: 200; }
+.leaflet-overlay-pane { z-index: 450; }
+.leaflet-marker-pane { z-index: 600 !important; }
+.leaflet-shadow-pane { z-index: 550; }
+
+/* Leaflet controls'ları da mavi-cam yapsın */
+.leaflet-control-zoom a{
+  background: rgba(15,23,42,0.75) !important;
+  color: #e5e7eb !important;
+  border: 1px solid rgba(96,165,250,0.18) !important;
+}
+.leaflet-control-zoom a:hover{
+  background: rgba(30,41,59,0.85) !important;
+}

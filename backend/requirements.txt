@@ -1,0 +1,11 @@
+flask
+flask-cors
+osmnx
+networkx
+pyodbc
+pandas
+numpy
+geopandas
+folium
+matplotlib
+scikit-learn

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kayıt Ol</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="auth-box">
+  <h2>Kayıt Ol</h2>
+
+  <input id="registerUsername" placeholder="Kullanıcı adı">
+  <input id="registerPassword" type="password" placeholder="Şifre">
+
+  <button onclick="register()">Kayıt Ol</button>
+
+  <p>
+    Zaten hesabın var mı?
+    <a href="/">Giriş Yap</a>
+
+  </p>
+</div>
+
+<script>
+function register() {
+  const username = document.getElementById("registerUsername").value.trim();
+  const password = document.getElementById("registerPassword").value.trim();
+
+  if (!username || !password) {
+    alert("Tüm alanlar zorunlu");
+    return;
+  }
+
+  fetch("http://127.0.0.1:5000/auth/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.error) {
+      alert(data.error);
+      return;
+    }
+
+    alert("Kayıt başarılı, giriş yapabilirsiniz");
+    window.location.href = "login.html";
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Kayıt sırasında hata oluştu");
+  });
+}
+</script>
+
+</body>
+</html>

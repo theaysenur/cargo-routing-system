@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kullanıcı Paneli</title>
+
+  <!-- Leaflet -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+
+  <!-- ROLE KONTROL -->
+  <script>
+    if (localStorage.getItem("role") !== "USER") {
+      window.location.href = "login.html";
+    }
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #0b1d33;
+    }
+
+    .app {
+      display: flex;
+      height: 100vh;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 320px;
+      padding: 22px;
+      background: linear-gradient(180deg, #0b1d33, #07162a);
+      color: #e5ecf4;
+      overflow-y: auto;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .sidebar h2 {
+      margin: 0 0 16px;
+    }
+
+    .sidebar h3 {
+      margin: 16px 0 6px;
+      font-size: 15px;
+      color: #9cc3ff;
+    }
+
+    .sidebar label {
+      display: block;
+      margin-top: 12px;
+      font-size: 13px;
+      opacity: 0.85;
+    }
+
+    .sidebar input,
+    .sidebar select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border-radius: 10px;
+      border: none;
+      background: #102a4c;
+      color: #fff;
+    }
+
+    .sidebar input:focus,
+    .sidebar select:focus {
+      outline: 2px solid #4f8cff;
+    }
+
+    .sidebar button {
+      width: 100%;
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(135deg, #4f8cff, #2563eb);
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .sidebar button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .sidebar hr {
+      margin: 20px 0;
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* MAP */
+    .map-container {
+      flex: 1;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* LIST */
+    .cargo-status-list {
+      max-height: 240px;
+      overflow-y: auto;
+      font-size: 13px;
+    }
+
+    .cargo-card {
+      background: #102a4c;
+      padding: 10px;
+      margin-bottom: 8px;
+      border-radius: 10px;
+    }
+
+    .cargo-approved {
+      border-left: 4px solid #22c55e;
+    }
+
+    .cargo-rejected {
+      border-left: 4px solid #ef4444;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+<hr/>
+
+
+
+      <h2>📦 Kargo Gönder</h2>
+
+      <label>Senaryo</label>
+      <select id="scenarioSelect"></select>
+
+      <label>Yeni Senaryo Adı</label>
+      <input
+        id="newScenarioName"
+        placeholder="Örn: Ayşenur Test Senaryosu"
+      />
+      <button onclick="createScenario()">➕ Senaryo Oluştur</button>
+
+      <hr />
+
+      <label>İstasyon</label>
+      <select id="stationSelect" disabled></select>
+
+      <label>Kargo Adedi</label>
+      <input
+        type="number"
+        id="cargoCount"
+        value="1"
+        min="1"
+        disabled
+      />
+
+      <label>Toplam Ağırlık (kg)</label>
+      <input
+        type="number"
+        id="totalWeight"
+        value="100"
+        min="1"
+        disabled
+      />
+
+      <button
+        id="sendCargoBtn"
+        onclick="sendCargo()"
+        disabled
+      >
+        📦 Kargo Ekle
+      </button>
+
+      <hr />
+
+      <!-- KARGO DURUMLARI -->
+      <h3>📋 Kargo Listem</h3>
+      <div id="cargoStatus" class="cargo-status-list"></div>
+
+      <hr />
+<h3>🛣️ Rota Bilgisi (Algoritma Sonucu)</h3>
+<div id="userRouteDetails" class="cargo-status-list">
+  <p style="color:#cbd5f5; font-size:13px;">Senaryo seçiniz.</p>
+</div>
+
+<hr />
+
+      <!-- 🔥 ALGORİTMA ROTASI (USER) -->
+      
+    </aside>
+
+    <!-- MAP -->
+    <main class="map-container">
+      <div id="map"></div>
+    </main>
+
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+ <script src="js/user.js"></script>
+
+<script src="js/user_map.js"></script>
+
+</body>
+</html>

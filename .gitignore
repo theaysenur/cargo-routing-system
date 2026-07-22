@@ -1,0 +1,13 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pkl
+backend/cache/
+backend/routes_map.html
+backend/vehicle_costs.png
+.vscode/
+*.exe
+*.pyd
+*.lib
+*.dll

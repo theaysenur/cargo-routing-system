@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Giriş | Kargo Sistemi</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #1d3557, #457b9d);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      width: 360px;
+      background: #fff;
+      border-radius: 14px;
+      padding: 32px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      color: #1d3557;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 14px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #457b9d;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #1d3557;
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #16324f;
+    }
+
+    .link {
+      margin-top: 16px;
+      text-align: center;
+      color: #457b9d;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .link:hover {
+      text-decoration: underline;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .footer {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- LOGIN -->
+  <div id="loginBox">
+    <h2>🚚 Giriş Yap</h2>
+
+    <input id="loginUsername" placeholder="Kullanıcı adı">
+    <input id="loginPassword" type="password" placeholder="Şifre">
+
+    <button onclick="login()">Giriş</button>
+
+    <div class="link" onclick="showRegister()">
+      Hesabın yok mu? Kayıt Ol
+    </div>
+  </div>
+
+  <!-- REGISTER -->
+  <div id="registerBox" class="hidden">
+    <h2>📝 Kayıt Ol</h2>
+
+    <input id="registerFullName" placeholder="Ad Soyad">
+    <input id="registerUsername" placeholder="Kullanıcı adı">
+    <input id="registerPassword" type="password" placeholder="Şifre">
+
+    <button onclick="register()">Kayıt Ol</button>
+
+    <div class="link" onclick="showLogin()">
+      Zaten hesabın var mı? Giriş Yap
+    </div>
+  </div>
+
+  <div class="footer">
+    © 2025 Kargo ve Rota Planlama
+  </div>
+</div>
+
+<script>
+/* -------------------------
+   EKRAN GEÇİŞLERİ
+------------------------- */
+function showRegister() {
+  document.getElementById("loginBox").classList.add("hidden");
+  document.getElementById("registerBox").classList.remove("hidden");
+}
+
+function showLogin() {
+  document.getElementById("registerBox").classList.add("hidden");
+  document.getElementById("loginBox").classList.remove("hidden");
+}
+
+/* -------------------------
+   LOGIN
+------------------------- */
+function login() {
+  fetch("http://127.0.0.1:5000/auth/login", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      username: loginUsername.value,
+      password: loginPassword.value
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.error) {
+      alert(data.error);
+      return;
+    }
+
+    localStorage.setItem("user_id", data.user_id);
+    localStorage.setItem("role", data.role);
+
+    window.location.href =
+      data.role === "ADMIN" ? "admin.html" : "user.html";
+  });
+}
+
+/* -------------------------
+   REGISTER
+------------------------- */
+function register() {
+  fetch("http://127.0.0.1:5000/auth/register", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      full_name: registerFullName.value,
+      username: registerUsername.value,
+      password: registerPassword.value
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.error) {
+      alert(data.error);
+      return;
+    }
+
+    alert("Kayıt başarılı! Giriş yapabilirsiniz.");
+    showLogin();
+  });
+}
+</script>
+
+</body>
+</html>

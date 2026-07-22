@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <title>Kargo Admin Panel</title>
+
+  <!-- Leaflet -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+
+  <!-- Proje CSS -->
+  <link rel="stylesheet" href="css/style.css"/>
+
+  <!-- 🔐 ADMIN KONTROL -->
+  <script>
+    if (localStorage.getItem("role") !== "ADMIN") {
+      window.location.href = "login.html";
+    }
+  </script>
+</head>
+
+<body>
+
+<!-- ✅ SADECE ARKA PLAN + HARİTA KABI İÇİN EK WRAPPER (isterler bozulmaz) -->
+<div class="app-bg">
+
+  <div class="layout">
+
+    <!-- ================================================= -->
+    <!-- SOL PANEL -->
+    <!-- ================================================= -->
+    <div class="sidebar">
+
+      <h2>🚚 Kargo Admin</h2>
+
+      <!-- ===================== -->
+      <!-- SENARYO -->
+      <!-- ===================== -->
+      <label>Senaryo</label>
+      <select id="scenarioSelect">
+        <option value="">Senaryo seç</option>
+      </select>
+
+      <!-- ===================== -->
+      <!-- PROBLEM TÜRÜ -->
+      <!-- ===================== -->
+      <label>Problem Türü</label>
+      <select id="modeSelect">
+        <option value="UNLIMITED">Sınırsız Araç</option>
+        <option value="LIMITED">Belirli Sayıda Araç</option>
+      </select>
+
+      <!-- ===================== -->
+      <!-- OPTİMİZASYON -->
+      <!-- ===================== -->
+      <label>Optimizasyon Hedefi</label>
+      <select id="cargoModeSelect">
+        <option value="MAX_WEIGHT">Maksimum Kargo</option>
+        <option value="MAX_COUNT">Maksimum Adet</option>
+
+      </select>
+
+      <button onclick="runScenario()">Çalıştır</button>
+
+      <hr/>
+
+      <!-- ===================== -->
+      <!-- ÖZET -->
+      <!-- ===================== -->
+      <h3>📊 Özet</h3>
+      <p><b>Toplam Rota:</b> <span id="routeCount">-</span></p>
+      <p><b>Toplam Mesafe:</b> <span id="totalKm">-</span> km</p>
+      <p><b>Toplam Maliyet:</b> <span id="totalCost">-</span> birim</p>
+<!-- ===================== -->
+<!-- 📊 TÜM SENARYOLAR ÖZET TABLO + GRAFİK -->
+<!-- ===================== -->
+<h3>📈 Tüm Senaryolar</h3>
+
+<!-- Grafik -->
+<div style="background:#102a4c; padding:10px; border-radius:10px;">
+  <canvas id="summaryChart" height="140"></canvas>
+</div>
+
+<!-- Tablo -->
+<div style="margin-top:12px; overflow:auto;">
+  <table id="summaryTable" style="width:100%; border-collapse:collapse; font-size:12px;">
+    <thead>
+      <tr style="color:#9cc3ff; text-align:left;">
+        <th style="padding:6px;">ID</th>
+        <th style="padding:6px;">Senaryo</th>
+        <th style="padding:6px;">Araç</th>
+        <th style="padding:6px;">Mesafe</th>
+        <th style="padding:6px;">Maliyet</th>
+        <th style="padding:6px;">Kullanıcı</th>
+        <th style="padding:6px;">Red</th>
+        <th style="padding:6px;">Detay</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<!-- Detay -->
+<h3 style="margin-top:14px;">🧾 Senaryo Detayı</h3>
+<div id="scenarioDetails">
+  <p style="font-size:12px; color:#94a3b8;">Tablodan bir senaryo seç.</p>
+</div>
+
+<hr/>
+
+      <hr/>
+
+      <!-- ===================== -->
+      <!-- ARAÇ LEGEND -->
+      <!-- ===================== -->
+      <h3>🗺️ Araçlar</h3>
+      <div id="legend"></div>
+
+      <hr/>
+
+      <!-- ===================== -->
+      <!-- 🚛 ROTA DETAY -->
+      <!-- ===================== -->
+      <h3>🚛 Rota Detayı</h3>
+
+      <!-- 🔥 renderRouteDetails BURAYA YAZAR -->
+      <div id="routeDetails">
+        <p style="font-size:12px; color:#94a3b8;">
+          Bir araca tıklayarak detayları görüntüleyin
+        </p>
+      </div>
+
+      <hr/>
+
+      <!-- ===================== -->
+      <!-- ➕ YENİ İSTASYON -->
+      <!-- ===================== -->
+      <h3>➕ Yeni İstasyon</h3>
+
+      <label>İlçe Adı</label>
+      <input id="newStationName" placeholder="Örn: Gebze" />
+
+      <label>Latitude</label>
+      <input id="newStationLat" placeholder="40.802" />
+
+      <label>Longitude</label>
+      <input id="newStationLon" placeholder="29.430" />
+
+      <button onclick="addStation()">İstasyon Ekle</button>
+
+      <p id="stationAddMsg" style="font-size:13px;"></p>
+
+    </div>
+
+    <!-- ================================================= -->
+    <!-- HARİTA -->
+    <!-- ================================================= -->
+    <!-- ✅ sadece görünüm için map-shell eklendi; #map aynen duruyor -->
+    <div class="map-shell">
+      <div id="map"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ================================================= -->
+<!-- JS -->
+<!-- ================================================= -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/map.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</body>
+</html>

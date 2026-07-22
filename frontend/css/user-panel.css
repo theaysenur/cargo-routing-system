@@ -1,0 +1,243 @@
+/* =================================================
+   GLOBAL
+================================================= */
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background: #0b1d33;
+  overflow: hidden;
+}
+
+/* =================================================
+   APP LAYOUT
+================================================= */
+.app {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  padding: 14px;
+  gap: 14px;
+}
+
+/* =================================================
+   SIDEBAR (ADMIN BİREBİR)
+================================================= */
+.sidebar {
+  width: 330px;
+  padding: 22px;
+
+  background: linear-gradient(180deg, #0b1d33, #07162a);
+  color: #e6edf7;
+
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.08);
+
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04),
+    0 25px 60px rgba(0,0,0,0.55);
+
+  overflow-y: auto;
+}
+
+/* =================================================
+   HEADINGS
+================================================= */
+.sidebar h2 {
+  margin: 0 0 18px;
+  font-size: 20px;
+}
+
+.sidebar h3 {
+  margin-top: 22px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #8fbaff;
+}
+
+/* =================================================
+   LABELS
+================================================= */
+.sidebar label {
+  display: block;
+  margin-top: 14px;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+/* =================================================
+   INPUT & SELECT (ADMIN CAM)
+================================================= */
+.sidebar input,
+.sidebar select {
+  width: 100%;
+  padding: 11px 12px;
+  margin-top: 6px;
+
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+
+  background: rgba(16,42,76,0.85);
+  color: #fff;
+
+  transition: .2s;
+}
+
+.sidebar input::placeholder {
+  color: rgba(255,255,255,0.4);
+}
+
+.sidebar input:focus,
+.sidebar select:focus {
+  outline: none;
+  border-color: #4f8cff;
+  box-shadow: 0 0 0 2px rgba(79,140,255,0.25);
+}
+
+/* =================================================
+   BUTTONS (ADMIN GRADIENT)
+================================================= */
+.sidebar button {
+  width: 100%;
+  margin-top: 16px;
+  padding: 13px;
+
+  border-radius: 14px;
+  border: none;
+
+  background: linear-gradient(135deg, #4f8cff, #2563eb);
+  color: #fff;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: .25s;
+}
+
+.sidebar button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(79,140,255,0.35);
+}
+
+.sidebar button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* =================================================
+   HR (ADMIN AYRAÇ)
+================================================= */
+.sidebar hr {
+  margin: 22px 0;
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255,255,255,0.15),
+    transparent
+  );
+}
+
+/* =================================================
+   CARGO LIST (ADMIN KART)
+================================================= */
+.cargo-status-list {
+  max-height: 260px;
+  overflow-y: auto;
+  font-size: 13px;
+}
+
+.cargo-status-list div {
+  background: rgba(16,42,76,0.75);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+
+/* =================================================
+   MAP PANEL (ADMIN BİREBİR)
+================================================= */
+.map-container {
+  flex: 1;
+  position: relative;
+  padding: 10px;
+
+  background: linear-gradient(180deg, #0b1d33, #07162a);
+
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.08);
+
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04),
+    0 25px 60px rgba(0,0,0,0.55);
+
+  overflow: hidden;
+}
+
+/* =================================================
+   MAP
+================================================= */
+#map {
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.05),
+    0 18px 45px rgba(0,0,0,0.55);
+}
+
+/* =================================================
+   MAP PANEL İÇ ÇERÇEVE
+================================================= */
+.map-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+/* =================================================
+   LEAFLET FIX
+================================================= */
+.leaflet-container {
+  width: 100% !important;
+  height: 100% !important;
+  background: #081a2f;
+}
+
+.leaflet-top.leaflet-left {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+/* =================================================
+   LEAFLET ZOOM (ADMIN)
+================================================= */
+.leaflet-control-zoom {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.leaflet-control-zoom a {
+  background: #102a4c !important;
+  color: #fff !important;
+  border: none !important;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  font-size: 18px;
+}
+
+.leaflet-control-zoom a:hover {
+  background: #2563eb !important;
+}
